@@ -1,3 +1,5 @@
+# In Zusammenarbeit mit `Mr-Major-K`
+
 # DON'T WORDLE (Work in Progress) 🔴
 
 ## Projektbeschreibung
