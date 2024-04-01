@@ -14,7 +14,7 @@ Wenn du die Flask-App ausführen möchtest, um DON'T WORDLE lokal zu spielen, fo
 
 2. **Projekt klonen**: Clone das GitHub-Projekt in ein Verzeichnis deiner Wahl. Du kannst dies über die GitHub-Website tun oder die folgende Befehlszeile verwenden:
 ```
-git clone <GitHub-Repository-URL>
+git clone https://github.com/EinfachNurBaum/DontWordle_German-Deutsch.git
 ```
 
 3. **PyCharm öffnen**: Öffne PyCharm und wähle "Open" aus dem Hauptmenü. Navigiere zu dem Verzeichnis, in dem du das Projekt geklont hast, und wähle es aus.
