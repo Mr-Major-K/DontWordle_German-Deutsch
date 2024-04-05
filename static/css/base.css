@@ -1,7 +1,7 @@
 /* static/css/base.css */
 :root {
     --background-color-light: #ffffff;
-    --background-color-dark: #333333;
+    --background-color-dark: #808080;
 }
 
 @media (prefers-color-scheme: dark) {
