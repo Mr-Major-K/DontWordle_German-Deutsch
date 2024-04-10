@@ -3,3 +3,6 @@ __pycache__
 .git
 .idea
 *.pyc
+*.pyc
+*.log
+app.spec

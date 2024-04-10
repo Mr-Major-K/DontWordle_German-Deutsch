@@ -1,28 +1,63 @@
 let cell_row = 5;
 let feedbackArray = []; // Zweidimensionales Array für das Feedback
 let UserHaveWon = null;
+let wordList = [];
 
 document.addEventListener('DOMContentLoaded', function() {
+    loadWordList();
     const inputBox = document.getElementById('textbox');
+
     inputBox.addEventListener('keyup', function(event) {
         if (event.key === 'Enter') {
             let inputText = inputBox.value;
-            if (inputText.length === 5) {
-                for (let i = 0; i < 5; i++) {
-                    let cell = document.getElementById('cell-'+ cell_row +'-' + i);
-                    if (cell) {
-                        cell.textContent = inputText[i].toUpperCase();
+            if (wordList.includes(inputText.toUpperCase()))
+            {
+                if (inputText.length === 5) {
+                    for (let i = 0; i < 5; i++) {
+                        let cell = document.getElementById('cell-'+ cell_row +'-' + i);
+                        if (cell) {
+                            cell.textContent = inputText[i].toUpperCase();
+                        }
+                        else {
+                            console.error('Zelle nicht gefunden:', 'cell-'+ cell_row +'-' + i);
+                        }
                     }
+                    inputBox.value = ''; // Textbox leeren
+
+                    // Hier senden wir die Eingabe an das Backend
+                    checkWord(inputText, cell_row);
+                    cell_row--;
                 }
+            }
+            else {
                 inputBox.value = ''; // Textbox leeren
 
-                // Hier senden wir die Eingabe an das Backend
-                checkWord(inputText, cell_row);
-                cell_row--;
+                // Animation für falsche Eingabe
+                anime({
+                    targets: inputBox,
+                    translateX: [
+                        { value: 10, duration: 100 },
+                        { value: -10, duration: 100 },
+                        { value: 0, duration: 100 }
+                    ],
+                });
+
             }
         }
     });
 });
+
+// Funktion zum Laden der Wörterliste aus der Datenbankdatei
+function loadWordList() {
+    fetch('/get_word_list') // Dies ist der Endpunkt, den Sie in Flask erstellen müssen, um die Wörterliste zu erhalten
+        .then(response => response.json())
+        .then(data => {
+            // Daten aufteilen und der wordList zuweisen
+            wordList = data.word_list;
+            console.log(wordList);
+        })
+        .catch(error => console.error('Fehler beim Laden der Wortliste:', error));
+}
 
 function checkWord(inputWord, row) {
     fetch('/check_word', {
@@ -68,13 +103,13 @@ function checkWord(inputWord, row) {
                 } else if (info.status === 'maybe') {
                     cell.style.backgroundColor = 'yellow';
                 } else if (info.status === 'incorrect') {
-                    cell.style.backgroundColor = '#ccc'; // Grauer Hintergrund für "incorrect"
+                    cell.style.backgroundColor = '#35393B'; // Grauer Hintergrund für "incorrect"
                 }
             }
         });
 
         console.log('Mögliche Wörter:', data.possible_words);
-    }).catch(error => console.error('Fehler:', error));
+    })
 }
 
 function triggerConfetti() {
@@ -132,7 +167,7 @@ function shareResults() {
         display += '\n\nDas letzte Wort: ' + final_word + ' wurde in ' + String(feedbackArray.length) + ' Versuchen erraten.';
     }
     else if (UserHaveWon === 'lose') {
-        display += 'Ich bin scheiße!';
+        display += '\nIch bin scheiße!';
     }
 
     // In die Zwischenablage kopieren

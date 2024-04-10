@@ -1,48 +1,168 @@
-# DON'T WORDLE (Work in Progress) 🔴
+# DON'T WORDLE GERMAN - DEUTSCH(Erste Version 🔴)
 
 ## Projektbeschreibung
 
-DON'T WORDLE ist eine Variante des beliebten Worträtselspiels Wordle, bei dem du versuchen musst, das geheime Wort zu erraten. Dieses Projekt befindet sich derzeit in der Entwicklung und wird unregelmäßig weiterentwickelt.
+DON'T WORDLE ist eine Variante des beliebten Worträtselspiels Wordle, bei dem Sie versuchen müssen, das geheime Wort zu erraten. Wir haben über 6000 Wörter die Sie erraten können.
+
+Dieses Projekt befindet sich derzeit in der Entwicklung und wird unregelmäßig weiterentwickelt.
+
+Für Linux und Windows gibt es direkt ausführbare Dateien unter: [Releases](https://github.com/EinfachNurBaum/DontWordle_German-Deutsch/releases)
 
 ## Anleitung (Aktuell)
 
-### Schritt-für-Schritt-Anleitung für das Ausführen der Flask-App
+### Anleitung zum Starten der Flask-App unter Linux
 
-Wenn du die Flask-App ausführen möchtest, um DON'T WORDLE lokal zu spielen, folge dieser Anleitung:
+Um die Flask-App unter Linux zu starten, folgen Sie bitte den unten stehenden Schritten wenn die **linux_build.sh** nicht korrekt ausgeführt wird:
 
-1. **Python und PyCharm**: Stelle sicher, dass du [Python](https://www.python.org/)  auf deinem Computer installiert hast. Wir empfehlen die Verwendung von [PyCharm](https://www.jetbrains.com/pycharm/download/), einer beliebten integrierten Entwicklungsumgebung (IDE) für Python.
+1. **Installieren Sie Virtualenv:**
+   Führen Sie den folgenden Befehl aus, um Virtualenv zu installieren:
+   ```bash
+   pip install virtualenv
+   ```
 
-2. **Projekt klonen**: Clone das GitHub-Projekt in ein Verzeichnis deiner Wahl. Du kannst dies über die GitHub-Website tun oder die folgende Befehlszeile verwenden:
-```
-git clone <GitHub-Repository-URL>
-```
+2. **Erstellen Sie eine Virtual Environment:**
+   Erstellen Sie eine neue Virtual Environment mit dem Namen "DontWordle", in den Verzeichnis wo auch die `app.py` befindet mit dem Befehl:
+   ```bash
+   virtualenv DontWordle
+   ```
 
-3. **PyCharm öffnen**: Öffne PyCharm und wähle "Open" aus dem Hauptmenü. Navigiere zu dem Verzeichnis, in dem du das Projekt geklont hast, und wähle es aus.
+3. **Aktivieren Sie die Virtual Environment:**
+   Aktivieren Sie die Virtual Environment mit den Skripten in `./DontWordle/bin`. Unter Gnome können Sie dies mit folgendem Befehl tun:
+   ```bash
+   source ./DontWordle/bin/activate
+   ```
 
-4. **Virtuelle Umgebung erstellen**: In PyCharm wird empfohlen, eine virtuelle Python-Umgebung zu erstellen. Gehe dazu zu "File" > "Settings" > "Python Interpreter" und klicke auf das Zahnradsymbol. Wähle "Add..." und erstelle eine neue virtuelle Umgebung.
+4. **Installieren Sie Flask:**
+   Nach der Aktivierung der Virtual Environment installieren Sie Flask mit dem Befehl:
+   ```bash
+   pip install flask
+   ```
 
-5. **Flask installieren**: Öffne das Terminal in PyCharm und führe den folgenden Befehl aus, um Flask in deiner virtuellen Umgebung zu installieren:
-```
-pip install Flask
-```
+5. **Starten Sie die Flask-App:**
+   Führen Sie die Flask-App mit dem folgenden Befehl aus:
+   ```bash
+   python app.py
+   ```
 
-6. **App starten**: Du kannst die Flask-App starten, indem du die Datei `app.py` ausführst. Klicke mit der rechten Maustaste auf die Datei in PyCharm und wähle "Run 'app'". Alternativ kannst du auch das Terminal verwenden und den folgenden Befehl ausführen:
-```
-python app.py
-```
+   Die App sollte jetzt auf `http://localhost:5000` oder `http://localhost:5001` verfügbar sein.
+
+7. **(Ab jetzt Optional) Für eine Binary**
+    Installieren Sie Pyinstaller mit dem folgenem Befehl:
+    ```bash
+    pip install pyinstaller
+    ```
+
+8. **(Ab jetzt Optional) Builden der Binary**
+    Führen Sie folgenen Befehl aus, in dem Verzeichnis wo die `app.py` und DontWordle ist:
+    ```bash
+    pyinstaller --hidden-import Flask --add-data "./words.txt:." --add-data "./static/js/*:static/js" --add-data "./static/css/*:static/css" --add-data "./static/*:static" --add-data "./templates/*:templates" --paths DontWordle/lib/python3.11/site-packages/ --onefile --console ./app.py
+    ```
+
+9. **(Ab jetzt Optional) Starten der Binary**
+    Öffnen sie ein Terminal in den lokalen `dist` Verzeichnis und führen sie folgenen Befehl aus:
+    ```bash
+    ./app
+    ```
+
+
+### Anleitung zum Starten der Flask-App unter Windows, wenn die Exe Datei nicht funktioniert!
+
+Um die Flask-App unter Windows zu starten, befolgen Sie bitte die unten stehenden Schritte:
+
+1. **Installieren Sie Python und PIP:**
+   Stellen Sie sicher, dass Python und PIP auf Ihrem System installiert sind. Sie können Python von der offiziellen Website herunterladen und installieren: [python.org](https://www.python.org/downloads/)
+
+2. **Klonen Sie das Repository und wechseln Sie in das Verzeichnis:**
+   Öffnen Sie ein Terminal (Powersshell) und lade sie Sie das Repository herunter unter "Code" -> "Download ZIP"
+   oder Klonen Sie das Repository mit:
+   ```bash
+   git clone https://github.com/EinfachNurBaum/DontWordle_German-Deutsch.git
+   cd DontWordle_German-Deutsch
+   ```
+
+3. **Führen Sie das Windows-Build-Skript aus:**
+   In den Ordner, mit der `app.py`, führen Sie das Windows-Build-Skript aus, indem Sie die Datei `Windows-build.ps1` ausführen. Sie können dies mit PowerShell tun:
+   ```bash
+   .\Windows-build.ps1
+   ```
+
+4. **Starten Sie die Flask-App:**
+   Nachdem das Skript ausgeführt wurde, navigieren Sie in das `dist`-Verzeichnis:
+   ```bash
+   cd dist
+   ```
+
+5. **(Wenn die EXE nicht funktioniert) Führen Sie die `app.py`**
+    In dem Verzeichnis mit der `app.py` führen Sie folgenes aus:
+    ```bash
+    python app.py
+    ```
+    oder 
+    ```bash
+    python3 app.py
+    ```
+    Die App sollte nun auf `http://localhost:5000` oder `http://localhost:5001` verfügbar sein.
+
+#### Fehlerbehebung:
+Von wenn Fehler:
+   ```bash
+   Windows-build.ps1" kann nicht
+   geladen werden, da die Ausführung von Skripts auf diesem System deaktiviert ist. Weitere Informationen finden Sie
+   unter "about_Execution_Policies" (https:/go.microsoft.com/fwlink/?LinkID=135170).
+   ```
+
+Das kann man lösen durch:
+   ```bash
+   Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Unrestricted
+   ```
+Weiter mit:
+   ```bash
+   .\Windows-build.ps1
+   ```
+
+### Anleitung zum Starten der Flask-App für Python-Kenner
+
+Wenn Sie mit Python vertraut sind, können Sie die Flask-App manuell einrichten und starten:
+
+1. **Klonen Sie das Repository und wechseln Sie in das Verzeichnis:**
+   ```bash
+   git clone https://github.com/EinfachNurBaum/DontWordle_German-Deutsch.git
+   cd DontWordle_German-Deutsch
+   ```
+
+2. **Erstellen und aktivieren Sie eine Virtual Environment:**
+   Erstellen Sie eine Virtual Environment und aktivieren Sie sie:
+   ```bash
+   python -m venv venv
+   source .\venv\Scripts\activate 
+   ```
+
+3. **Installieren Sie die erforderlichen Pakete:**
+   Installieren Sie Flask und andere erforderliche Pakete:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. **Starten Sie die Flask-App:**
+   Führen Sie die Flask-App aus:
+   ```bash
+   python app.py
+   ```
+
+   Die App sollte nun auf `http://localhost:5000` oder `http://localhost:5001` verfügbar sein.
+
+
 
 ### Technische Beschreibung
 
 Für Entwickler und technisch Interessierte bieten wir eine kurze Übersicht über die technische Seite des Projekts:
 
-- **Frontend**: Das Frontend ist mit HTML, CSS und JavaScript entwickelt. Die Benutzeroberfläche verwendet Grid Layouts und Flexbox für ein ansprechendes Design. Das Design habe ich mit chatGPT gemacht, weil ich kein bock habe frontend machen, ohne bezahlt zu werden.
+- **Frontend**: Das Frontend ist mit HTML, CSS und JavaScript entwickelt. Die Benutzeroberfläche verwendet Grid Layouts und Flexbox für ein ansprechendes Design. Das Design habe ich zu großteils mit ChatGPT gemacht, weil ich keinen Bock habe das Frontend selber zumacheb.
+  - Das Frontend bietet das Feature von Darkmode und Lightmode an.
+  - Für die Animation wird Anime.js genutzt
 
-- **Backend**: Das Backend verwendet Flask, ein Python-Framework, um die Spiellogik zu verwalten. Die Kommunikation zwischen Frontend und Backend erfolgt über AJAX-Anfragen.
+- **Backend**: Das Backend verwendet Flask, ein Python-Framework, um die Kommunikation von Frontend und Backend zu verwalten. Die Kommunikation zwischen Frontend und Backend erfolgt über nur über POST-Anfragen, zudem verwaltet es auch denn Rate-Prozess, also welches Wort Sie raten müssen, was Sie richtig haben und co.
 
-- **Spiellogik**: Das Spiel verwendet Reguläre Ausdrücke, um Benutzereingaben mit dem geheimen Wort zu vergleichen und Feedback zu generieren. Die verfügbaren Wörter werden dynamisch gefiltert.
-
-### Todo
-- **Datenbank erstellen**
-- **app.py mit Datenbank arbeiten lassen**
-- **Verlieren testen**
-- **(Für später) Wörter Eingaben rückgängig machen**
+- **Datenbank**: Die Datenbank ist aktuell in der TXT Version, weil eine TXT sich am leichtesten lesen und öffnen lässt.
+  
+- **Spiellogik**: Der User muss das System zu einem Wort zwingen. Je nach Eingabe und anfangs Zielwort ergiben sich "gefangene Buchstaben". Die jeweils im nächsten Zielwort vorhanden sein müssen.
